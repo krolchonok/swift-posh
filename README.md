@@ -48,6 +48,8 @@ Useful shell commands after loading:
 Reload-SwiftPosh
 Update-SwiftPosh
 Update-SwiftPosh -ApplySetup
+Install-SwiftPoshThemeLibrary
+Get-SwiftPoshThemeLibrary
 Get-SwiftPoshAliases
 Add-SwiftPoshAlias -Name k -Value kubectl
 New-SwiftPoshAlias
@@ -65,6 +67,12 @@ Persistent aliases are stored in:
 
 They are loaded automatically during `Initialize-SwiftPosh`.
 
+Official external `oh-my-posh` themes can be downloaded into:
+
+```powershell
+~/.swift-posh/themes/oh-my-posh
+```
+
 ## Install on another device
 
 Use the bundled installer:
@@ -79,8 +87,8 @@ Menu actions:
 - install `Ctrl+C` / `Ctrl+с` PSReadLine fix
 - open `Commands` for aliases, phrases and `curl.exe for curl`
 - install Windows Terminal shortcuts
-- choose a `Nerd Font` from a list and install it
-- choose a `Nerd Font` and apply it to Windows Terminal
+- set a `Nerd Font`
+- install official `oh-my-posh` theme library
 - apply all patches
 
 Non-interactive full install:

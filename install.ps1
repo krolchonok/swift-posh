@@ -1229,6 +1229,10 @@ function Show-SetupMenu {
             }
         }
         @{
+            Label  = 'Install official theme library'
+            Action = { Invoke-MenuAction { Install-SwiftPoshThemeLibrary } }
+        }
+        @{
             Label  = 'Apply all patches'
             Action = {
                 $messages = @()
@@ -1239,6 +1243,7 @@ function Show-SetupMenu {
                 $messages += Invoke-MenuAction { Install-CurlAliasPatch }
                 Install-SelectedNerdFontAndApply
                 $messages += 'Font setup finished'
+                $messages += Invoke-MenuAction { Install-SwiftPoshThemeLibrary }
                 $messages
             }
         }
@@ -1333,7 +1338,8 @@ function Show-BasicSetupMenu {
         Write-Host '4. Use current folder as tab title'
         Write-Host '5. Commands'
         Write-Host '6. Set font'
-        Write-Host '7. Apply all patches'
+        Write-Host '7. Install official theme library'
+        Write-Host '8. Apply all patches'
         Write-Host 'Q. Quit'
         Write-Host ''
 
@@ -1348,7 +1354,8 @@ function Show-BasicSetupMenu {
                 Install-SelectedNerdFontAndApply
                 Show-MenuStatus -Message 'Font setup finished'
             }
-            '7' {
+            '7' { Show-MenuStatus -Message (Invoke-MenuAction { Install-SwiftPoshThemeLibrary }) }
+            '8' {
                 $messages = @()
                 $messages += Invoke-MenuAction { Install-SwiftPoshProfileEntry }
                 $messages += Invoke-MenuAction { Install-PSReadLineBindings }
@@ -1357,6 +1364,7 @@ function Show-BasicSetupMenu {
                 $messages += Invoke-MenuAction { Install-CurlAliasPatch }
                 Install-SelectedNerdFontAndApply
                 $messages += 'Font setup finished'
+                $messages += Invoke-MenuAction { Install-SwiftPoshThemeLibrary }
                 Show-MenuStatus -Message (($messages | Where-Object { $_ }) -join [Environment]::NewLine)
             }
             'q' { return }

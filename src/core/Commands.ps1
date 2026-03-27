@@ -69,7 +69,7 @@ function global:Reload-SwiftPosh {
         [string]$ConfigPath = "$PSScriptRoot\..\config.psd1"
     )
 
-    Import-SwiftPoshModules
+    . "$PSScriptRoot\..\swift-posh.ps1"
     Initialize-SwiftPosh -ConfigPath $ConfigPath
     Write-Host 'swift-posh reloaded'
 }
@@ -275,6 +275,13 @@ function global:Format-SwiftPoshCommands {
     return (($items | ForEach-Object {
         "[{0}] {1} -> {2}" -f $_.Type, $_.Name, $_.Value
     }) -join [Environment]::NewLine)
+}
+
+function global:Get-SwiftPoshThemeLibrary {
+    [CmdletBinding()]
+    param()
+
+    Get-SwiftPoshInstalledThemeLibrary
 }
 
 function global:Add-SwiftPoshCommand {
