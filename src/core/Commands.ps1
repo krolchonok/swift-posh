@@ -76,8 +76,10 @@ function global:Reload-SwiftPosh {
 
 function global:Update-SwiftPosh {
     [CmdletBinding()]
+    [Alias('swift-posh-update', 'update-posh')]
     param(
         [switch]$ApplySetup,
+        [switch]$Force,
         [string]$ConfigPath = "$PSScriptRoot\..\config.psd1"
     )
 
@@ -90,9 +92,20 @@ function global:Update-SwiftPosh {
             throw 'git is not available, cannot update swift-posh repository.'
         }
 
+        Write-Host '[swift-posh] Fetching latest updates from Git...' -ForegroundColor Cyan
         & $git.Source -C $projectRoot pull --ff-only
     } else {
-        Write-Host 'swift-posh is not a git repository. Reloading local files only.'
+        Write-Host '[swift-posh] Repository is not a git clone. Reloading local files only.' -ForegroundColor Yellow
+    }
+
+    if ($Force) {
+        $lastCheckPath = Join-Path (Get-SwiftPoshHomeDirectory) 'last_check'
+        if (Test-Path -LiteralPath $lastCheckPath) {
+            Remove-Item -LiteralPath $lastCheckPath -Force
+        }
+        if ($script:SwiftPoshConfig) {
+            Invoke-SwiftPoshPowerShellUpdateCheck -Config $script:SwiftPoshConfig -Force
+        }
     }
 
     if ($ApplySetup) {
@@ -100,6 +113,7 @@ function global:Update-SwiftPosh {
     }
 
     Reload-SwiftPosh -ConfigPath $ConfigPath
+    Write-Host '[swift-posh] Environment updated and reloaded successfully!' -ForegroundColor Green
 }
 
 function global:Get-SwiftPoshAliases {
