@@ -93,7 +93,8 @@ function global:Update-SwiftPosh {
         }
 
         Write-Host '[swift-posh] Fetching latest updates from Git...' -ForegroundColor Cyan
-        & $git.Source -C $projectRoot pull --ff-only
+        & $git.Source -C $projectRoot fetch origin main
+        & $git.Source -C $projectRoot reset --hard origin/main
     } else {
         Write-Host '[swift-posh] Repository is not a git clone. Reloading local files only.' -ForegroundColor Yellow
     }

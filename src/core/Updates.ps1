@@ -229,6 +229,7 @@ function global:Invoke-SwiftPoshRepoAutoUpdate {
 
     Start-Job -ScriptBlock {
         param($repoPath)
-        git -C $repoPath pull --ff-only 2>&1 | Out-Null
+        git -C $repoPath fetch origin main 2>&1 | Out-Null
+        git -C $repoPath reset --hard origin/main 2>&1 | Out-Null
     } -ArgumentList $ProjectRoot | Out-Null
 }
