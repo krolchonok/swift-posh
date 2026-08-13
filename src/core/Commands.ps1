@@ -345,3 +345,33 @@ function global:Remove-SwiftPoshCommand {
         Remove-SwiftPoshAlias -Name $Name
     }
 }
+
+function global:Get-SwiftPoshFAQ {
+    [CmdletBinding()]
+    [Alias('posh-faq', 'swift-posh-faq')]
+    param()
+
+    @'
+=== SWIFT-POSH CHEAT SHEET / FAQ (WINDOWS) ===
+
+[ Навигация и работа с папками ]
+  mkcd <path> / take <path>     : Создать папку и сразу перейти в нее
+  gclone <url> [папка]           : Клонировать git-репозиторий и сразу перейти в него
+  gclcd <url>                   : Алиас для gclone
+
+[ Распаковка архивов ]
+  extract <файл> / x <файл>     : Автоматически распаковать .zip, .tar.gz, .7z, .rar
+
+[ Управление swift-posh ]
+  Update-SwiftPosh / update-posh: Обновить swift-posh и перезагрузить окружение
+  Update-SwiftPosh -Force       : Принудительно обновить репозиторий и PowerShell.exe
+  Reload-SwiftPosh              : Перезагрузить локальные модули swift-posh
+  Menu / Open-SwiftPoshSetup    : Открыть интерактивное меню настройки
+  posh-faq / swift-posh-faq     : Показать эту справку
+
+[ Управление персональными алиасами ]
+  Get-SwiftPoshAliases          : Показать список алиасов
+  Add-SwiftPoshAlias -Name n -Value v : Сохранить новый алиас
+  Remove-SwiftPoshAlias -Name n : Удалить алиас
+'@ | Write-Host -ForegroundColor Cyan
+}
