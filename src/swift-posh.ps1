@@ -36,4 +36,5 @@ function global:Initialize-SwiftPosh {
     Import-SwiftPoshAliases
     Import-SwiftPoshPhrases
     Invoke-SwiftPoshPowerShellUpdateCheck -Config $script:SwiftPoshConfig
+    Invoke-SwiftPoshRepoAutoUpdate -ProjectRoot (Split-Path -Path $PSScriptRoot -Parent)
 }

@@ -196,3 +196,39 @@ function global:Invoke-SwiftPoshPowerShellUpdateCheck {
 
     & $winget.Source upgrade --id Microsoft.PowerShell --accept-source-agreements --accept-package-agreements
 }
+
+function global:Invoke-SwiftPoshRepoAutoUpdate {
+    [CmdletBinding()]
+    param(
+        [string]$ProjectRoot
+    )
+
+    if (-not $ProjectRoot) {
+        return
+    }
+
+    $gitDir = Join-Path $ProjectRoot '.git'
+    if (-not (Test-Path -LiteralPath $gitDir)) {
+        return
+    }
+
+    $lastCheckPath = Join-Path (Get-SwiftPoshHomeDirectory) 'last_check'
+    if (Test-Path -LiteralPath $lastCheckPath) {
+        try {
+            $lastCheck = (Get-Content -LiteralPath $lastCheckPath -Raw).Trim()
+            $parsedDate = [datetime]::MinValue
+            if ([datetime]::TryParse($lastCheck, [ref]$parsedDate)) {
+                if ($parsedDate.AddHours(6) -gt [datetime]::UtcNow) {
+                    return
+                }
+            }
+        } catch {}
+    }
+
+    Set-Content -LiteralPath $lastCheckPath -Value ([datetime]::UtcNow.ToString('o'))
+
+    Start-Job -ScriptBlock {
+        param($repoPath)
+        git -C $repoPath pull --ff-only 2>&1 | Out-Null
+    } -ArgumentList $ProjectRoot | Out-Null
+}
