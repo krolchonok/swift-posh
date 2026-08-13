@@ -73,6 +73,20 @@ Official external `oh-my-posh` themes can be downloaded into:
 ~/.swift-posh/themes/oh-my-posh
 ```
 
+
+## Utility Functions & Aliases
+
+-  /  — Create directory and set location into it immediately.
+-  /  — Clone git repository and set location into the cloned directory.
+-  /  — Auto-extract archives (, , , , , , ).
+
+
+## Utility Functions & Aliases
+
+- `mkcd <path>` / `take <path>` — Create directory and set location into it immediately.
+- `gclone <url> [target-dir]` / `gclcd` — Clone git repository and set location into the cloned directory.
+- `extract <file>` / `x <file>` — Auto-extract archives (`.zip`, `.tar.gz`, `.tgz`, `.tar`, `.gz`, `.7z`, `.rar`).
+
 ## Install on another device
 
 Use the bundled installer:

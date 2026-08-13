@@ -11,6 +11,7 @@ function global:Import-SwiftPoshModules {
     . "$PSScriptRoot\core\Phrases.ps1"
     . "$PSScriptRoot\core\ThemeLibrary.ps1"
     . "$PSScriptRoot\core\Commands.ps1"
+    . "$PSScriptRoot\core\Utilities.ps1"
     . "$PSScriptRoot\segments\Status.ps1"
     . "$PSScriptRoot\segments\Path.ps1"
     . "$PSScriptRoot\segments\Git.ps1"
